@@ -1,0 +1,90 @@
+@media screen and (max-width: 1200px) {
+
+  .header {
+    margin-left: 27px;
+    margin-right: 27px;
+    width: calc(100% - 54px);
+   }
+
+  .profile {
+    padding: 0;
+    margin: 27px;
+    width: calc(100% - 54px);
+  }
+
+  .profile__add-button {
+    margin: 0;
+    padding: 0;
+  }
+
+  .cards {
+    margin-top: 0;
+  }
+
+  .footer {
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 48px 19px 36px;
+    width: calc(100% - 38px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  .header {
+    margin: 0;
+    padding: 27px 0 32px 28px;
+  }
+
+  .profile {
+    flex-direction: column;
+    margin: 42px auto 36px;
+  }
+
+  .profile__image {
+    margin: 0;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 30px;
+    margin: 0;
+  }
+
+  .profile__title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+  }
+
+  .profile__description {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin-top: 36px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .cards {
+    margin-top: 0;
+  }
+
+  .footer {
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 48px 19px 36px;
+    width: calc(100% - 38px);
+  }
+}
