@@ -19,7 +19,7 @@
   padding: 25px 25px 25px 20px;
 }
 
-.card__description h2 {
+.card__title {
   margin: 0;
   font-weight: 900;
   font-size: 24px;
@@ -35,4 +35,9 @@
   height: 18px;
   padding: 0 20px 30px 2px;
   border: none;
+}
+
+.card__like-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }

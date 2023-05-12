@@ -15,12 +15,3 @@
     width: calc(100% - 38px);
   }
 }
-
-@media screen and (max-width: 480px) {
-  .footer {
-    font-size: 14px;
-    line-height: 1.2;
-    margin: 48px 19px 36px;
-    width: calc(100% - 38px);
-  }
-}
