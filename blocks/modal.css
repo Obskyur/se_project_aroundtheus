@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  display: none;
+  padding: 19px;
+}
+
+.modal_opened {
+  display: flex;
+}
+
+.modal__container {
+  position: relative;
+  background-color: #fff;
+  margin: auto;
+  padding: 36px;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal__close {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: -36px;
+  right: -36px;
+  padding: 0;
+  border: none;
+  background: transparent url("../images/close-icon.svg") center no-repeat;
+  cursor: pointer;
+}
