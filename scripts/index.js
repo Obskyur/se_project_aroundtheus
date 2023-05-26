@@ -1,3 +1,51 @@
+/*══════════════╕
+ │ DOM ELEMENTS │
+ ╘══════════════*/
+const editButton = document.querySelector(".profile__edit-button");
+const profileName = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const modal = document.querySelector(".modal");
+const modalForm = modal.querySelector(".modal__form");
+const modalCloseButton = modal.querySelector(".modal__close");
+const modalNameInput = modal.querySelector("#modalName");
+const modalDescriptionInput = modal.querySelector("#modalDescription");
+
+/*════════════════╕
+ │ EVENT HANDLERS │
+ ╘════════════════*/
+function modalOpen() {
+  modalNameInput.value = profileName.textContent;
+  modalDescriptionInput.value = profileDescription.textContent;
+  modal.classList.add("modal_opened")
+ }
+function modalClose() {
+  modal.classList.remove("modal_opened");
+}
+function handleProfileSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = modalNameInput.value;
+  profileDescription.textContent = modalDescriptionInput.value;
+  modalClose();
+}
+
+/*════════════════╕
+ │ PAGE FUNCTIONS │
+ ╘════════════════*/
+editButton.addEventListener("click", modalOpen);
+
+/*═════════════════╕
+ │ MODAL FUNCTIONS │
+ ╘═════════════════*/
+modalCloseButton.addEventListener("click", modalClose);
+modalForm.addEventListener("submit", handleProfileSubmit);
+
+/*════════════════╕
+ │ CARD FUNCTIONS │
+ ╘════════════════*/
+
+/*═══════╕
+ │ CARDS │
+ ╘═══════*/
 let initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,14 +73,3 @@ let initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg ",
   },
 ];
-
-let editButton = document.querySelector(".profile__edit-button");
-let modal = document.querySelector(".modal");
-let closeButton = document.querySelector(".modal__close");
-
-editButton.addEventListener("click", modalToggle);
-closeButton.addEventListener("click", modalToggle);
-
-function modalToggle() {
-  modal.classList.toggle("modal_opened");
-}
