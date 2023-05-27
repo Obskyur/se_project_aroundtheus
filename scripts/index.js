@@ -77,11 +77,6 @@ modalForm.addEventListener("submit", handleProfileSubmit);
  │ CARD FUNCTIONS │
  ╘════════════════*/
 
-// Add a card to HTML
-initialCards.forEach((cardData) => {
-  cardListElement.append(getCardElement(cardData));
-});
-
 // Given cardData, return raw HTML for card
 function getCardElement(cardData) {
   // Clone Template
@@ -96,3 +91,8 @@ function getCardElement(cardData) {
   // Return this 'card'
   return cardElement;
 }
+
+// Add a card to HTML
+initialCards.forEach((cardData) => {
+  cardListElement.append(getCardElement(cardData));
+});

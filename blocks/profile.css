@@ -80,6 +80,7 @@
     padding: 0;
     margin: 27px;
     width: calc(100% - 54px);
+    justify-content: center;
   }
 
   .profile__add-button {

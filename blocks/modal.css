@@ -58,16 +58,23 @@ font-size: 24px;
   width: 358px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #000;
 }
 
 .modal__button {
   height: 50px;
   margin-top: 18px;
   background-color: #000;
+  border: none;
   border-radius: 2px;
   color: #FFF;
   font-weight: 400;
   font-size: 18px;
+  line-height: 1.2;
   cursor: pointer;
 }
 
@@ -100,5 +107,6 @@ font-size: 24px;
   .modal__button {
     height: 46px;
     margin-top: 15px;
+    font-size: 14px;
   }
 }
