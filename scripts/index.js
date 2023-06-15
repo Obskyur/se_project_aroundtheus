@@ -35,11 +35,11 @@ let initialCards = [
 const editButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const modal = document.querySelector(".modal");
-const modalForm = modal.querySelector(".modal__form");
-const modalCloseButton = modal.querySelector(".modal__close");
-const modalNameInput = modal.querySelector("#modalName");
-const modalDescriptionInput = modal.querySelector("#modalDescription");
+const editModal = document.querySelector("#edit-profile-modal");
+const modalForm = editModal.querySelector(".modal__form");
+const modalCloseButton = editModal.querySelector(".modal__close");
+const modalNameInput = editModal.querySelector("#modalName");
+const modalDescriptionInput = editModal.querySelector("#modalDescription");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardListElement = document.querySelector(".cards__list");
@@ -50,10 +50,10 @@ const cardListElement = document.querySelector(".cards__list");
 function modalOpen() {
   modalNameInput.value = profileName.textContent;
   modalDescriptionInput.value = profileDescription.textContent;
-  modal.classList.add("modal_opened");
+  editModal.classList.add("modal_opened");
 }
 function modalClose() {
-  modal.classList.remove("modal_opened");
+  editModal.classList.remove("modal_opened");
 }
 function handleProfileSubmit(evt) {
   evt.preventDefault();
