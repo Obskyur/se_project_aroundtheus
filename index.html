@@ -78,14 +78,14 @@
 /*════════════════╕
  │ ADD CARD MODAL │
  ╘════════════════*/
-    <div class="modal">
+    <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button class="modal__close" type="button" aria-label="Close Profile Edit"></button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-modal" name="profileEdit">
+        <form class="modal__form" id="add-card-form" name="profileEdit">
           <input
             class="modal__input modal__input_type_title"
-            id="modalName"
+            id="modal-title"
             type="text"
             name="title"
             placeholder="Title"
@@ -93,7 +93,7 @@
           />
           <input
             class="modal__input modal__input_type_link"
-            id="modalDescription"
+            id="modal-link"
             type="text"
             name="url"
             placeholder="Image Link"
@@ -104,7 +104,9 @@
       </div>
     </div>
 
-
+/*═══════════════╕
+ │ CARD TEMPLATE │
+ ╘═══════════════*/
     <template id="card-template">
       <li class="card">
         <img class="card__image" src="" alt="" />
