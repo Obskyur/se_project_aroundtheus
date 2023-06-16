@@ -142,7 +142,7 @@ function addCardDataToHTML(cardData) {
   cardImageElement.addEventListener("click", () => {
     openModal(imageModal);
     modalImageElement.src = cardData.link;
-    modalImageElement.alt = cardDate.name;
+    modalImageElement.alt = cardData.name;
     modalCaptionElement.textContent = cardData.name;
   });
   likeButton.addEventListener("click", () =>
