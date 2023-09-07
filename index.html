@@ -62,16 +62,22 @@
             type="text"
             name="title"
             placeholder="Name"
+            minlength="2"
+            maxlength="40"
             required
           />
+          <span class="modal__error" id="modalName-error"></span>
           <input
             class="modal__input"
             id="modalDescription"
             type="text"
             name="description"
             placeholder="Description"
+            minlength="2"
+            maxlength="200"
             required
           />
+          <span class="modal__error" id="modalDescription-error"></span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
@@ -93,17 +99,21 @@
             type="text"
             name="title"
             placeholder="Title"
+            minlength="1"
+            maxlength="30"
             required
           />
+          <span class="modal__error" id="modal-title-error"></span>
           <input
             class="modal__input modal__input_type_link"
             id="modal-link"
-            type="text"
+            type="url"
             name="url"
             placeholder="Image Link"
             required
           />
-          <button class="modal__button" type="submit">Create</button>
+          <span class="modal__error" id="modal-link-error"></span>
+          <button class="modal__button modal__button_disabled" type="submit" disabled>Create</button>
         </form>
       </div>
     </div>
@@ -143,5 +153,6 @@
 
     <!--* Scripts -->
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

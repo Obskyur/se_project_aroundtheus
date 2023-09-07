@@ -37,6 +37,7 @@ const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
 //* Wrappers
+const modals = [...document.querySelectorAll(".modal")];
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const cardListElement = document.querySelector(".cards__list");
@@ -116,7 +117,18 @@ document
     closeButton.addEventListener("click", () =>
       closeModal(closeButton.closest(".modal"))
     )
-  );
+);
+document.addEventListener("click", (e) => {
+  console.log(e);
+  if (e.target.classList.contains("modal_opened")) {
+    modals.forEach((modal) => closeModal(modal));
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    modals.forEach((modal) => closeModal(modal));
+  }
+});
 editProfileModalForm.addEventListener("submit", handleProfileSave);
 addCardModalForm.addEventListener("submit", handleAddCard);
 
@@ -138,7 +150,7 @@ function addCardDataToHTML(cardData) {
   cardImageElement.alt = cardData.name;
   cardDescriptionElement.textContent = cardData.name;
 
-  // Card Event Listeners
+  //* Card Event Listeners
   cardImageElement.addEventListener("click", () => {
     openModal(imageModal);
     modalImageElement.src = cardData.link;
