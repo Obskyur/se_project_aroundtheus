@@ -1,3 +1,6 @@
+/*═══════════════════════╕
+ │ INPUT FIELD FUNCTIONS │
+ ╘═══════════════════════*/
 function showInputError(formEl, inputEl, config) {
   const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(config.inputErrorClass);
@@ -25,22 +28,43 @@ function hasInvalid(inputFields) {
   return !inputFields.every((inputEl) => inputEl.validity.valid);
 };
 
+/*══════════════════╕
+ │ BUTTON FUNCTIONS │
+ ╘══════════════════*/
+function disableButton(submitButton, config) {
+  submitButton.classList.add(config.inactiveButtonClass);
+  submitButton.disabled = true;
+}
+
+function enableButton(submitButton, config) {
+  submitButton.classList.remove(config.inactiveButtonClass);
+  submitButton.disabled = false;
+}
+
 function toggleButtonState(inputFields, submitButton, config) {
   if (hasInvalid(inputFields)) {
-    submitButton.classList.add(config.inactiveButtonClass);
-    submitButton.disabled = true;
+    disableButton(submitButton, config);
   }
   else {
-    submitButton.classList.remove(config.inactiveButtonClass);
-    submitButton.disabled = false;
+    enableButton(submitButton, config);
   }
 };
 
+/*══════════════════════════════╕
+ │ FORM EVENT LISTENER HANDLERS │
+ ╘══════════════════════════════*/
 function setEventListeners(formEl, config) {
   // Find inputs
   const inputFields = [...formEl.querySelectorAll(config.inputSelector)];
   const submitButton = formEl.querySelector(config.submitButtonSelector);
-  // Validate inputs
+
+  // Submit Listener
+  formEl.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    disableButton(submitButton, config);
+  });
+  
+  // Validate on Input Listener
   inputFields.forEach((inputEl) => {
     inputEl.addEventListener("input", () => {
       checkInputValidity(formEl, inputEl, config);
@@ -49,15 +73,12 @@ function setEventListeners(formEl, config) {
   });
 };
 
+/*═════════════════════════╕
+ │ FORM VALIDATION WRAPPER │
+ ╘═════════════════════════*/
 function enableValidation(config) {
   const formEls = [...document.querySelectorAll(config.formSelector)];
   formEls.forEach((formEl) => {
-    formEl.addEventListener("submit", (evt) => {
-      const submitButton = formEl.querySelector(config.submitButtonSelector);
-      evt.preventDefault();
-      submitButton.classList.add(config.inactiveButtonClass);
-      submitButton.disabled = true;
-    });
 
     setEventListeners(formEl, config);
   });
@@ -65,7 +86,9 @@ function enableValidation(config) {
 
 
 
-
+/*══════════════════════╕
+ │ RUN VALIDATION SETUP │
+ ╘══════════════════════*/
 enableValidation({
   formSelector: ".modal__form",
   inputSelector: ".modal__input",

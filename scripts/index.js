@@ -68,9 +68,17 @@ const cardTemplate =
  ╘════════════════*/
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeByEscape);
 }
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeByEscape);
+}
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
 }
 function setFormFields() {
   modalNameInput.value = profileName.textContent;
@@ -110,25 +118,16 @@ addButton.addEventListener("click", () => {
 /*═════════════════╕
  │ MODAL FUNCTIONS │
  ╘═════════════════*/
-// Modal Close Buttons
-document
-  .querySelectorAll(".modal__close")
-  .forEach((closeButton) =>
-    closeButton.addEventListener("click", () =>
-      closeModal(closeButton.closest(".modal"))
-    )
-);
-document.addEventListener("click", (e) => {
-  console.log(e);
-  if (e.target.classList.contains("modal_opened")) {
-    modals.forEach((modal) => closeModal(modal));
-  }
+//* Modal Closing
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal__close"))
+      closeModal(modal);
+    if (evt.target.classList.contains("modal_opened"))
+      closeModal(modal);
+  });
 });
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    modals.forEach((modal) => closeModal(modal));
-  }
-});
+//* Modal Submitting
 editProfileModalForm.addEventListener("submit", handleProfileSave);
 addCardModalForm.addEventListener("submit", handleAddCard);
 
