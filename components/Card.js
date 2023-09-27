@@ -1,16 +1,11 @@
 class Card {
-  
-  constructor(data, cardSelector, handleImageClick) {
-    
-  }
+  constructor(data, cardSelector, handleImageClick) {}
 
-  _setEventListeners() {
+  getElement() {}
 
-  }
-  _handleDelete() {
+  _handleDelete() {}
 
-  }
-  _handleLike() {
+  _handleLike() {}
 
-  }
+  _setEventListeners() {}
 }
