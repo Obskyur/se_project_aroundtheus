@@ -105,6 +105,13 @@ function handleAddCard(evt) {
 
   closeModal(addCardModal);
 }
+function handleImageClick(card) {
+  console.log(card);
+  openModal(imageModal);
+    modalImageElement.src = card.getData().link;
+    modalImageElement.alt = card.getData().name;
+    modalCaptionElement.textContent = card.getData().name;
+}
 
 /*════════════════╕
  │ PAGE FUNCTIONS │
@@ -137,7 +144,7 @@ addCardModalForm.addEventListener("submit", handleAddCard);
  │ CARD FUNCTIONS │
  ╘════════════════*/
 
-// Given cardData element, return raw HTML for card
+/* // Given cardData element, return raw HTML for card
 function addCardDataToHTML(cardData) {
   // Clone Template
   const cardElement = cardTemplate.cloneNode(true);
@@ -166,9 +173,12 @@ function addCardDataToHTML(cardData) {
   );
   // Return this 'card'
   return cardElement;
-}
+} */
 
 // Add initial cards to HTML
 initialCards.forEach((cardData) => {
-  cardListElement.append(addCardDataToHTML(cardData));
+  cardListElement
+    .append(
+    new Card(cardData, "#card-template", handleImageClick)
+    .getElement());
 });

@@ -1,24 +1,30 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
-    this._data = { name, link };
+  constructor(data, cardSelector, handleImageClick) {
+    //* Passed values:
+    this._data = data;
     this._cardSelector = cardSelector;
-    this._handleImageclick = handleImageClick;
+    this._handleImageClick = handleImageClick;
+
+    //* PRIVATE DOM MEMBERS:
+    // DOM Card Element
+    this._cardElement = document
+      .querySelector(`${this._cardSelector}`)
+      .content.firstElementChild.cloneNode(true);
+    // DOM image element
+    this._imageElement = this._cardElement.querySelector(".card__image");
+    // DOM title element
+    this._descriptionElement = this._cardElement.querySelector(".card__title");
+    // DOM like button element
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
+    // DOM delete button element
+    this._deleteButton = this._cardElement.querySelector(
+      ".card__delete-button"
+    );
   }
 
-  //* PRIVATE MEMBERS
-  // HTML Card Element
-  _cardElement = document
-    .querySelector(`${this._cardSelector}`)
-    .content.firstElementChild.cloneNode(true);
-  _imageElement = this._cardElement.querySelector(".card__image");
-  // HTML title element
-  _descriptionElement = this._cardElement.querySelector(".card__title");
-  // HTML like button element
-  _likeButton = this._cardElement.querySelector(".card__like-button");
-  // HTML delete button element
-  _deleteButton = this._cardElement.querySelector(
-    ".card__delete-button"
-  );
+  getData() {
+    return this._data;
+  }
 
   getElement() {
     this._setCardValues();
@@ -27,11 +33,17 @@ export default class Card {
   }
 
   _handleDelete() {
-    this._deleteButton.closest(".card").remove();
+    this.closest(".card").remove();
   }
+  /* 
+  _handleImageClick(card) {
+    console.log("hi from inside");
+    console.log(this);
+    handleImageClick(this);
+  } */
 
   _handleLike() {
-    this._likeButton.classList.toggle("card__like-button_active");
+    this.classList.toggle("card__like-button_active");
   }
 
   _setCardValues() {
@@ -48,6 +60,9 @@ export default class Card {
     this._deleteButton.addEventListener("click", this._handleDelete);
 
     // Image
-    this._imageElement.addEventListener("click", handleImageClick);
+    console.log(this._imageElement);
+    this._imageElement.addEventListener("click", () =>
+      this._handleImageClick(this)
+    );
   }
 }
