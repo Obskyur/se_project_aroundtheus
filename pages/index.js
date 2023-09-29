@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js"
+
 /*═══════╕
  │ CARDS │
  ╘═══════*/
@@ -59,10 +62,6 @@ const addCardModalForm = document.forms["add-card-form"];
 const modalTitleInput = addCardModal.querySelector("#modal-title");
 const modalLinkInput = addCardModal.querySelector("#modal-link");
 
-//* Cards
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
@@ -98,10 +97,19 @@ function handleAddCard(evt) {
   evt.preventDefault();
   card.name = modalTitleInput.value;
   card.link = modalLinkInput.value;
-  cardListElement.prepend(addCardDataToHTML(card));
+  cardListElement
+    .prepend(new Card(card, "#card-template", handleImageClick)
+    .getElement());
   evt.target.reset();
 
   closeModal(addCardModal);
+}
+function handleImageClick(card) {
+  console.log(card);
+  openModal(imageModal);
+    modalImageElement.src = card.getData().link;
+    modalImageElement.alt = card.getData().name;
+    modalCaptionElement.textContent = card.getData().name;
 }
 
 /*════════════════╕
@@ -135,38 +143,25 @@ addCardModalForm.addEventListener("submit", handleAddCard);
  │ CARD FUNCTIONS │
  ╘════════════════*/
 
-// Given cardData element, return raw HTML for card
-function addCardDataToHTML(cardData) {
-  // Clone Template
-  const cardElement = cardTemplate.cloneNode(true);
-  // Store Values
-  const cardImageElement = cardElement.querySelector(".card__image");
-  const cardDescriptionElement = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  // Set Values for Card Instance
-  cardImageElement.src = cardData.link;
-  cardImageElement.alt = cardData.name;
-  cardDescriptionElement.textContent = cardData.name;
-
-  //* Card Event Listeners
-  cardImageElement.addEventListener("click", () => {
-    openModal(imageModal);
-    modalImageElement.src = cardData.link;
-    modalImageElement.alt = cardData.name;
-    modalCaptionElement.textContent = cardData.name;
-  });
-  likeButton.addEventListener("click", () =>
-    likeButton.classList.toggle("card__like-button_active")
-  );
-  deleteButton.addEventListener("click", () =>
-    deleteButton.closest(".card").remove()
-  );
-  // Return this 'card'
-  return cardElement;
-}
-
 // Add initial cards to HTML
 initialCards.forEach((cardData) => {
-  cardListElement.append(addCardDataToHTML(cardData));
+  cardListElement
+    .append(
+    new Card(cardData, "#card-template", handleImageClick)
+    .getElement());
+});
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+const formEls = [...document
+  .querySelectorAll(config.formSelector)];
+formEls.forEach((formEl) => {
+  formEl.validator = new FormValidator(config, formEl);
+  formEl.validator.enableValidation();
 });
