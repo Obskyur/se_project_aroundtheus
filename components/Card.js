@@ -35,12 +35,6 @@ export default class Card {
   _handleDelete() {
     this.closest(".card").remove();
   }
-  /* 
-  _handleImageClick(card) {
-    console.log("hi from inside");
-    console.log(this);
-    handleImageClick(this);
-  } */
 
   _handleLike() {
     this.classList.toggle("card__like-button_active");
@@ -60,7 +54,6 @@ export default class Card {
     this._deleteButton.addEventListener("click", this._handleDelete);
 
     // Image
-    console.log(this._imageElement);
     this._imageElement.addEventListener("click", () =>
       this._handleImageClick(this)
     );
