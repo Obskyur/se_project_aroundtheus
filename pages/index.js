@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import FormValidator from "../components/FormValidator.js"
+import FormValidator from "../components/FormValidator.js";
 
 /*═══════╕
  │ CARDS │
@@ -56,7 +56,8 @@ const addButton = document.querySelector(".profile__add-button");
 // Edit Profile Form
 const editProfileModalForm = document.forms["edit-profile-form"];
 const modalNameInput = editProfileModal.querySelector("#modalName");
-const modalDescriptionInput = editProfileModal.querySelector("#modalDescription");
+const modalDescriptionInput =
+  editProfileModal.querySelector("#modalDescription");
 // Add Card Form
 const addCardModalForm = document.forms["add-card-form"];
 const modalTitleInput = addCardModal.querySelector("#modal-title");
@@ -79,7 +80,7 @@ function closeByEscape(evt) {
     closeModal(openedModal);
   }
 }
-function setFormFields() {
+function fillProfileInputs() {
   modalNameInput.value = profileName.textContent;
   modalDescriptionInput.value = profileDescription.textContent;
 }
@@ -97,19 +98,18 @@ function handleAddCard(evt) {
   evt.preventDefault();
   card.name = modalTitleInput.value;
   card.link = modalLinkInput.value;
-  cardListElement
-    .prepend(new Card(card, "#card-template", handleImageClick)
-    .getElement());
+  cardListElement.prepend(createCard(card));
   evt.target.reset();
 
   closeModal(addCardModal);
 }
+
 function handleImageClick(card) {
-  console.log(card);
+  const { link, name } = card.getData();
   openModal(imageModal);
-    modalImageElement.src = card.getData().link;
-    modalImageElement.alt = card.getData().name;
-    modalCaptionElement.textContent = card.getData().name;
+  modalImageElement.src = link;
+  modalImageElement.alt = name;
+  modalCaptionElement.textContent = name;
 }
 
 /*════════════════╕
@@ -117,10 +117,12 @@ function handleImageClick(card) {
  ╘════════════════*/
 editButton.addEventListener("click", () => {
   openModal(editProfileModal);
-  setFormFields();
+  fillProfileInputs();
+  formValidators['edit-profile-form'].resetValidation();
 });
 addButton.addEventListener("click", () => {
   openModal(addCardModal);
+  formValidators['add-card-form'].resetValidation();
 });
 
 /*═════════════════╕
@@ -129,10 +131,8 @@ addButton.addEventListener("click", () => {
 //* Modal Closing
 modals.forEach((modal) => {
   modal.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("modal__close"))
-      closeModal(modal);
-    if (evt.target.classList.contains("modal_opened"))
-      closeModal(modal);
+    if (evt.target.classList.contains("modal__close")) closeModal(modal);
+    if (evt.target.classList.contains("modal_opened")) closeModal(modal);
   });
 });
 //* Modal Submitting
@@ -142,15 +142,19 @@ addCardModalForm.addEventListener("submit", handleAddCard);
 /*════════════════╕
  │ CARD FUNCTIONS │
  ╘════════════════*/
+function createCard(card) {
+  return new Card(card, "#card-template", handleImageClick).getElement();
+}
 
 // Add initial cards to HTML
 initialCards.forEach((cardData) => {
-  cardListElement
-    .append(
-    new Card(cardData, "#card-template", handleImageClick)
-    .getElement());
+  cardListElement.append(createCard(cardData));
 });
 
+
+/*═════════╕
+ │ IMPORTS │
+ ╘═════════*/
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -159,9 +163,21 @@ const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
-const formEls = [...document
-  .querySelectorAll(config.formSelector)];
-formEls.forEach((formEl) => {
-  formEl.validator = new FormValidator(config, formEl);
-  formEl.validator.enableValidation();
-});
+
+const formValidators = {};
+
+function enableValidation(config) 
+{
+  const formEls = [...document.querySelectorAll(config.formSelector)];
+  formEls.forEach((formEl) => {
+    const validator = new FormValidator(config, formEl);
+    const formName = formEl.getAttribute('name');
+    
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
+

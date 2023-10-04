@@ -2,11 +2,27 @@ export default class FormValidator {
   constructor(settings, formEl) {
     this._settings = settings;
     this._formEl = formEl;
+    // Find Form Fields
+    this._inputFields = [
+      ...formEl.querySelectorAll(this._settings.inputSelector),
+    ];
+    this._submitButton = formEl.querySelector(
+      this._settings.submitButtonSelector
+    );
   }
 
   enableValidation() {
     this._setEventListeners(this._formEl, this._settings);
   }
+
+  resetValidation()
+  {
+    this._toggleButtonState(this._inputFields, this._submitButton, this._settings);
+    this._inputFields.forEach((input) => {
+      this._hideInputError(this._formEl, input, this._settings);
+    });
+  }
+
   /*═══════════════════════╕
  │ INPUT FIELD FUNCTIONS │
  ╘═══════════════════════*/
@@ -37,21 +53,17 @@ export default class FormValidator {
   }
 
   _setEventListeners(formEl, config) {
-    // Find Form Fields
-    const inputFields = [...formEl.querySelectorAll(config.inputSelector)];
-    const submitButton = formEl.querySelector(config.submitButtonSelector);
-
     // Submit Listener
     formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._disableButton(submitButton, config);
+      this._disableButton(this._submitButton, config);
     });
 
     // Validate on Input Listener
-    inputFields.forEach((inputEl) => {
+    this._inputFields.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
         this._checkInputValidity(formEl, inputEl, config);
-        this._toggleButtonState(inputFields, submitButton, config);
+        this._toggleButtonState(this._inputFields, this._submitButton, config);
       });
     });
   }

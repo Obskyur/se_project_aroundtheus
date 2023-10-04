@@ -32,12 +32,12 @@ export default class Card {
     return this._cardElement;
   }
 
-  _handleDelete() {
-    this.closest(".card").remove();
+  _handleDelete(event) {
+    event.target.closest(".card").remove();
   }
 
-  _handleLike() {
-    this.classList.toggle("card__like-button_active");
+  _handleLike(event) {
+    event.target.classList.toggle("card__like-button_active");
   }
 
   _setCardValues() {
