@@ -46,19 +46,23 @@
       </footer>
     </div>
 
-    <!--* Edit Profile Modal -->
-    <div class="modal" id="edit-profile-modal">
-      <div class="modal__container">
+    <!--* Edit Profile Popup -->
+    <div class="popup" id="edit-profile-popup">
+      <div class="popup__container">
         <button
-          class="modal__close"
+          class="popup__close"
           type="button"
           aria-label="Close Profile Edit"
         ></button>
-        <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form" id="edit-profile-form" name="edit-profile-form">
+        <h2 class="popup__heading">Edit Profile</h2>
+        <form
+          class="popup__form"
+          id="edit-profile-form"
+          name="edit-profile-form"
+        >
           <input
-            class="modal__input"
-            id="modalName"
+            class="popup__input"
+            id="popupName"
             type="text"
             name="title"
             placeholder="Name"
@@ -66,10 +70,10 @@
             maxlength="40"
             required
           />
-          <span class="modal__error" id="modalName-error"></span>
+          <span class="popup__error" id="popupName-error"></span>
           <input
-            class="modal__input"
-            id="modalDescription"
+            class="popup__input"
+            id="popupDescription"
             type="text"
             name="description"
             placeholder="Description"
@@ -77,25 +81,25 @@
             maxlength="200"
             required
           />
-          <span class="modal__error" id="modalDescription-error"></span>
-          <button class="modal__button" type="submit">Save</button>
+          <span class="popup__error" id="popupDescription-error"></span>
+          <button class="popup__button" type="submit">Save</button>
         </form>
       </div>
     </div>
 
-    <!--* Add Card Modal -->
-    <div class="modal" id="add-card-modal">
-      <div class="modal__container">
+    <!--* Add Card Popup -->
+    <div class="popup" id="add-card-popup">
+      <div class="popup__container">
         <button
-          class="modal__close"
+          class="popup__close"
           type="button"
           aria-label="Close Profile Edit"
         ></button>
-        <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-form" name="add-card-form">
+        <h2 class="popup__heading">New Place</h2>
+        <form class="popup__form" id="add-card-form" name="add-card-form">
           <input
-            class="modal__input modal__input_type_title"
-            id="modal-title"
+            class="popup__input popup__input_type_title"
+            id="popup-title"
             type="text"
             name="title"
             placeholder="Title"
@@ -103,31 +107,37 @@
             maxlength="30"
             required
           />
-          <span class="modal__error" id="modal-title-error"></span>
+          <span class="popup__error" id="popup-title-error"></span>
           <input
-            class="modal__input modal__input_type_link"
-            id="modal-link"
+            class="popup__input popup__input_type_link"
+            id="popup-link"
             type="url"
             name="url"
             placeholder="Image Link"
             required
           />
-          <span class="modal__error" id="modal-link-error"></span>
-          <button class="modal__button modal__button_disabled" type="submit" disabled>Create</button>
+          <span class="popup__error" id="popup-link-error"></span>
+          <button
+            class="popup__button popup__button_disabled"
+            type="submit"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
 
-    <!--* Image Popup Modal -->
-    <div class="modal" id="image-modal">
-      <div class="modal__container modal__container_type_image">
+    <!--* Image Popup Popup -->
+    <div class="popup" id="image-popup">
+      <div class="popup__container popup__container_type_image">
         <button
-          class="modal__close"
+          class="popup__close"
           type="button"
           aria-label="Close Profile Edit"
         ></button>
-        <img class="modal__image" src="#" alt="">
-        <p class="modal__caption"></p>
+        <img class="popup__image" src="#" alt="" />
+        <p class="popup__caption"></p>
       </div>
     </div>
 

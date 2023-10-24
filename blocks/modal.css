@@ -1,4 +1,4 @@
-.modal {
+.popup {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -13,12 +13,12 @@
   transition: all 0.6s ease-out;
 }
 
-.modal_opened {
+.popup_opened {
   visibility: visible;
   opacity: 1;
 }
 
-.modal__container {
+.popup__container {
   position: relative;
   margin: auto;
   width: min-content;
@@ -28,7 +28,7 @@
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
 }
 
-.modal__close {
+.popup__close {
   height: 40px;
   width: 40px;
   position: absolute;
@@ -40,24 +40,24 @@
   cursor: pointer;
 }
 
-.modal__close:hover {
+.popup__close:hover {
   opacity: 0.6;
 }
 
-.modal__heading {
+.popup__heading {
   margin: 0 0 54px;
   color: #000;
   font-weight: 900;
   font-size: 24px;
 }
 
-.modal__form {
+.popup__form {
   display: flex;
   flex-direction: column;
   row-gap: 30px;
 }
 
-.modal__input {
+.popup__input {
   height: 28px;
   width: 358px;
   border: none;
@@ -69,25 +69,25 @@
   color: #000;
 }
 
-.modal__input_type_error {
-  border-bottom: 1px solid #FF0000;
+.popup__input_type_error {
+  border-bottom: 1px solid #ff0000;
 }
 
-.modal__error {
+.popup__error {
   display: none;
   height: 17px;
   width: 358px;
   margin-top: -28px;
-  color: #FF0000;
+  color: #ff0000;
   font-size: 12px;
 }
 
-.modal__error_visible {
+.popup__error_visible {
   display: block;
   position: relative;
 }
 
-.modal__button {
+.popup__button {
   height: 50px;
   margin-top: 18px;
   background-color: #000;
@@ -100,16 +100,16 @@
   cursor: pointer;
 }
 
-.modal__button:hover {
+.popup__button:hover {
   opacity: 0.8;
 }
 
-.modal__button_disabled {
+.popup__button_disabled {
   cursor: default;
   opacity: 0.2;
 }
 
-.modal__container_type_image {
+.popup__container_type_image {
   background: none;
   max-width: 75vw;
   max-height: 75vh;
@@ -120,12 +120,12 @@
   flex-direction: column;
 }
 
-.modal__image {
+.popup__image {
   max-width: 100%;
   max-height: 100%;
 }
 
-.modal__caption {
+.popup__caption {
   position: relative;
   margin: 0;
   padding: 10px 0 0;
@@ -136,28 +136,28 @@
 }
 
 @media screen and (max-width: 560px) {
-  .modal__container {
+  .popup__container {
     padding: 25px 22px;
   }
 
-  .modal__close {
+  .popup__close {
     right: 0px;
     top: -42px;
     height: 20px;
     width: 20px;
   }
 
-  .modal__heading {
+  .popup__heading {
     font-size: 18px;
     margin-bottom: 75px;
   }
 
-  .modal__input {
+  .popup__input {
     width: calc(100vw - 86px);
     font-size: 14px;
   }
 
-  .modal__button {
+  .popup__button {
     height: 46px;
     margin-top: 15px;
     font-size: 14px;
