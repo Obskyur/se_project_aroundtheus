@@ -92,18 +92,11 @@ function handleProfileSave({ input_1: name , input_2: description }) {
   profileName.textContent = name;
   profileDescription.textContent = description;
 }
-function handleAddCard(evt) {
-  const card = {
-    name: "",
-    link: "",
-  };
-  evt.preventDefault();
-  card.name = popupTitleInput.value;
-  card.link = popupLinkInput.value;
+function handleAddCard({ input_1, input_2 }) {
+  const card = {};
+  card.name = input_1;
+  card.link = input_2;
   cardListElement.prepend(createCard(card));
-  evt.target.reset();
-
-  closePopup(addCardPopup);
 }
 
 function handleImageClick(card) {
@@ -126,6 +119,7 @@ editButton.addEventListener("click", () => {
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
+  new PopupWithForm('#add-card-popup', handleAddCard).open();
   openPopup(addCardPopup);
   formValidators["add-card-form"].resetValidation();
 });
