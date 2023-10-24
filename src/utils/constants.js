@@ -1,4 +1,3 @@
-
 import UserInfo from "../components/UserInfo";
 
 /*══════╕
@@ -16,7 +15,8 @@ export const addButton = document.querySelector(".profile__add-button");
  │ FORMS │
  ╘═══════*/
 export const popupNameInput = document.querySelector("#popupName");
-export const popupDescriptionInput = document.querySelector("#popupDescription");
+export const popupDescriptionInput =
+  document.querySelector("#popupDescription");
 
 /*═══════╕
  │ CARDS │

@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor( profNameElementSelector, occupationElementSelector ) {
+  constructor(profNameElementSelector, occupationElementSelector) {
     this._profName = document.querySelector(profNameElementSelector);
     this._occupation = document.querySelector(occupationElementSelector);
   }
@@ -11,7 +11,7 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo( name, occupation ) {
+  setUserInfo(name, occupation) {
     this._profName.textContent = name;
     this._occupation.textContent = occupation;
   }

@@ -7,7 +7,7 @@ import {
   initialCards,
   popupNameInput,
   popupDescriptionInput,
-  user
+  user,
 } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -21,43 +21,46 @@ import PopupWithImage from "../components/PopupWithImage";
 function fillProfileInputs() {
   popupNameInput.value = user.getUserInfo().name;
   popupDescriptionInput.value = user.getUserInfo().occupation;
-};
+}
 
 editButton.addEventListener("click", () => {
-  new PopupWithForm('#edit-profile-popup', handleProfileSave).open();
+  new PopupWithForm("#edit-profile-popup", handleProfileSave).open();
   fillProfileInputs();
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
-  new PopupWithForm('#add-card-popup', handleAddCard).open();
+  new PopupWithForm("#add-card-popup", handleAddCard).open();
   formValidators["add-card-form"].resetValidation();
 });
 
 /*═══════╕
  │ CARDS │
  ╘═══════*/
-new Section({ items: initialCards, renderer: handleCreateCard }, ".cards__list");
+new Section(
+  { items: initialCards, renderer: handleCreateCard },
+  ".cards__list"
+);
 
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
- function handleAddCard({ input_1, input_2 }) {
-   const card = {
-     name: input_1,
-     link: input_2
-   };
-   cardListElement.prepend(createCard(card));
- };
+function handleAddCard({ input_1, input_2 }) {
+  const card = {
+    name: input_1,
+    link: input_2,
+  };
+  cardListElement.prepend(createCard(card));
+}
 function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
-};
+}
 function handleImageClick(card) {
-  const popup = new PopupWithImage("#image-popup")
+  const popup = new PopupWithImage("#image-popup");
   popup.open(card.getData());
-};
+}
 function handleProfileSave({ input_1: name, input_2: description }) {
   user.setUserInfo(name, description);
-};
+}
 
 /*═══════════╕
  │ VALIDATOR │
