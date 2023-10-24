@@ -15,5 +15,7 @@ export default class PopupWithForm extends Popup {
     super.open();
   }
 
-  
+  setEventListeners() {
+    super.setEventListeners();
+  }
 }
