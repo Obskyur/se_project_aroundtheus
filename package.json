@@ -2,13 +2,13 @@
   "name": "practicum",
   "version": "0.0.1",
   "description": "Educational platform",
-  "main": "index.js",
+  "main": "./src/pages/index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve --mode development"
   },
   "keywords": [],
-  "author": "Elise Bouer",
+  "author": "Tristan Miller",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.18.9",
