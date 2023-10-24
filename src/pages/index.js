@@ -88,11 +88,9 @@ function fillProfileInputs() {
   popupNameInput.value = profileName.textContent;
   popupDescriptionInput.value = profileDescription.textContent;
 }
-function handleProfileSave(evt) {
-  evt.preventDefault();
-  profileName.textContent = popupNameInput.value;
-  profileDescription.textContent = popupDescriptionInput.value;
-  closePopup(editProfilePopup);
+function handleProfileSave({ input_1: name , input_2: description }) {
+  profileName.textContent = name;
+  profileDescription.textContent = description;
 }
 function handleAddCard(evt) {
   const card = {
@@ -122,7 +120,8 @@ function handleImageClick(card) {
  │ PAGE FUNCTIONS │
  ╘════════════════*/
 editButton.addEventListener("click", () => {
-  openPopup(editProfilePopup);
+  new PopupWithForm('#edit-profile-popup', handleProfileSave).open();
+  // openPopup(editProfilePopup);
   fillProfileInputs();
   formValidators["edit-profile-form"].resetValidation();
 });
@@ -142,8 +141,8 @@ addButton.addEventListener("click", () => {
 //   });
 // });
 //* Popup Submitting
-editProfilePopupForm.addEventListener("submit", handleProfileSave);
-addCardPopupForm.addEventListener("submit", handleAddCard);
+// editProfilePopupForm.addEventListener("submit", handleProfileSave);
+// addCardPopupForm.addEventListener("submit", handleAddCard);
 
 /*════════════════╕
  │ CARD FUNCTIONS │
