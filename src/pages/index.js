@@ -11,6 +11,8 @@ import UserInfo from "../components/UserInfo";
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
+const userName = user.getUserInfo().name;
+const userOcc = user.getUserInfo().occupation;
 
 /*══════════════╕
  │ PAGE BUTTONS │
@@ -20,7 +22,7 @@ export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
   editProfilePopup.open();
-  fillProfileInputs();
+  editProfilePopup.setInputValues({title: userName, description: userOcc });
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
@@ -38,11 +40,6 @@ const editProfilePopup = new PopupWithForm(
   handleProfileSave
 );
 const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
-
-function fillProfileInputs() {
-  profileNameInput.value = user.getUserInfo().name;
-  profileDescriptionInput.value = user.getUserInfo().occupation;
-}
 
 /*═══════╕
  │ CARDS │
