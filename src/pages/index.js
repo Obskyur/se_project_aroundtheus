@@ -11,8 +11,7 @@ import UserInfo from "../components/UserInfo";
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
-var userName = user.getUserInfo().name;
-var userOcc = user.getUserInfo().occupation;
+let { name, occupation } = user.getUserInfo();
 
 /*══════════════╕
  │ PAGE BUTTONS │
@@ -21,10 +20,9 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
-  userName = user.getUserInfo().name;
-  userOcc = user.getUserInfo().occupation;
+  ({ name, occupation } = user.getUserInfo());
   editProfilePopup.open();
-  editProfilePopup.setInputValues({title: userName, description: userOcc });
+  editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
@@ -44,9 +42,8 @@ const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
 /*═══════╕
  │ CARDS │
  ╘═══════*/
-const cardListElement = document.querySelector(".cards__list");
 
-new Section(
+const cardSection = new Section(
   { items: initialCards, renderer: handleCreateCard },
   ".cards__list"
 );
@@ -54,12 +51,12 @@ new Section(
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
-function handleAddCard({ input_1, input_2 }) {
+function handleAddCard({ title, url }) {
   const card = {
-    name: input_1,
-    link: input_2,
+    name: title,
+    link: url,
   };
-  cardListElement.prepend(handleCreateCard(card));
+  cardSection.addItem(handleCreateCard(card));
 }
 function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
