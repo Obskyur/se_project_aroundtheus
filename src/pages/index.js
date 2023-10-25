@@ -11,8 +11,8 @@ import UserInfo from "../components/UserInfo";
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
-const userName = user.getUserInfo().name;
-const userOcc = user.getUserInfo().occupation;
+var userName = user.getUserInfo().name;
+var userOcc = user.getUserInfo().occupation;
 
 /*══════════════╕
  │ PAGE BUTTONS │
@@ -21,6 +21,8 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
+  userName = user.getUserInfo().name;
+  userOcc = user.getUserInfo().occupation;
   editProfilePopup.open();
   editProfilePopup.setInputValues({title: userName, description: userOcc });
   formValidators["edit-profile-form"].resetValidation();
@@ -33,8 +35,6 @@ addButton.addEventListener("click", () => {
 /*═══════╕
  │ FORMS │
  ╘═══════*/
-const profileNameInput = document.querySelector("#popupName");
-const profileDescriptionInput = document.querySelector("#popupDescription");
 const editProfilePopup = new PopupWithForm(
   "#edit-profile-popup",
   handleProfileSave
@@ -68,7 +68,7 @@ function handleImageClick(card) {
   const popup = new PopupWithImage("#image-popup");
   popup.open(card.getData());
 }
-function handleProfileSave({ input_1: name, input_2: description }) {
+function handleProfileSave({ title: name, description: description }) {
   user.setUserInfo(name, description);
 }
 
