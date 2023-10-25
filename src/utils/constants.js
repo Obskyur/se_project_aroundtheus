@@ -1,23 +1,3 @@
-import UserInfo from "../components/UserInfo";
-
-/*══════╕
- │ USER │
- ╘══════*/
-export const user = new UserInfo(".profile__title", ".profile__description");
-
-/*══════════════╕
-  │ PAGE BUTTONS │
-  ╘══════════════*/
-export const editButton = document.querySelector(".profile__edit-button");
-export const addButton = document.querySelector(".profile__add-button");
-
-/*═══════╕
- │ FORMS │
- ╘═══════*/
-export const popupNameInput = document.querySelector("#popupName");
-export const popupDescriptionInput =
-  document.querySelector("#popupDescription");
-
 /*═══════╕
  │ CARDS │
  ╘═══════*/

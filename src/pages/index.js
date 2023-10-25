@@ -1,41 +1,54 @@
 import "./index.css";
-import {
-  addButton,
-  config,
-  editButton,
-  formValidators,
-  initialCards,
-  popupNameInput,
-  popupDescriptionInput,
-  user,
-} from "../utils/constants.js";
+import { config, formValidators, initialCards } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
+import UserInfo from "../components/UserInfo";
 
-/*═══════╕
- │ FORMS │
- ╘═══════*/
-function fillProfileInputs() {
-  popupNameInput.value = user.getUserInfo().name;
-  popupDescriptionInput.value = user.getUserInfo().occupation;
-}
+/*══════╕
+ │ USER │
+ ╘══════*/
+const user = new UserInfo(".profile__title", ".profile__description");
+
+/*══════════════╕
+ │ PAGE BUTTONS │
+ ╘══════════════*/
+export const editButton = document.querySelector(".profile__edit-button");
+export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
-  new PopupWithForm("#edit-profile-popup", handleProfileSave).open();
+  editProfilePopup.open();
   fillProfileInputs();
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
-  new PopupWithForm("#add-card-popup", handleAddCard).open();
+  addCardPopup.open();
   formValidators["add-card-form"].resetValidation();
 });
 
 /*═══════╕
+ │ FORMS │
+ ╘═══════*/
+const profileNameInput = document.querySelector("#popupName");
+const profileDescriptionInput = document.querySelector("#popupDescription");
+const editProfilePopup = new PopupWithForm(
+  "#edit-profile-popup",
+  handleProfileSave
+);
+const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
+
+function fillProfileInputs() {
+  profileNameInput.value = user.getUserInfo().name;
+  profileDescriptionInput.value = user.getUserInfo().occupation;
+}
+
+/*═══════╕
  │ CARDS │
  ╘═══════*/
+const cardListElement = document.querySelector(".cards__list");
+
 new Section(
   { items: initialCards, renderer: handleCreateCard },
   ".cards__list"
@@ -49,7 +62,7 @@ function handleAddCard({ input_1, input_2 }) {
     name: input_1,
     link: input_2,
   };
-  cardListElement.prepend(createCard(card));
+  cardListElement.prepend(handleCreateCard(card));
 }
 function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
