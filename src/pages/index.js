@@ -42,7 +42,6 @@ const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
 /*═══════╕
  │ CARDS │
  ╘═══════*/
-
 const cardSection = new Section(
   { items: initialCards, renderer: handleCreateCard },
   ".cards__list"
@@ -51,6 +50,8 @@ const cardSection = new Section(
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
+const popup = new PopupWithImage("#image-popup");
+  
 function handleAddCard({ title, url }) {
   const card = {
     name: title,
@@ -62,7 +63,6 @@ function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
 }
 function handleImageClick(card) {
-  const popup = new PopupWithImage("#image-popup");
   popup.open(card.getData());
 }
 function handleProfileSave({ title: name, description: description }) {
