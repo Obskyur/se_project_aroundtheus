@@ -11,7 +11,6 @@ import UserInfo from "../components/UserInfo";
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
-let { name, occupation } = user.getUserInfo();
 
 /*══════════════╕
  │ PAGE BUTTONS │
@@ -20,7 +19,7 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
-  ({ name, occupation } = user.getUserInfo());
+  let { name, occupation } = user.getUserInfo();
   editProfilePopup.open();
   editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
@@ -50,8 +49,8 @@ const cardSection = new Section(
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
-const popup = new PopupWithImage("#image-popup");
-  
+const imagePopup = new PopupWithImage("#image-popup");
+
 function handleAddCard({ title, url }) {
   const card = {
     name: title,
@@ -63,10 +62,10 @@ function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
 }
 function handleImageClick(card) {
-  popup.open(card.getData());
+  imagePopup.open(card.getData());
 }
-function handleProfileSave({ title: name, description: description }) {
-  user.setUserInfo(name, description);
+function handleProfileSave({ title, description }) {
+  user.setUserInfo(title, description);
 }
 
 /*═══════════╕
