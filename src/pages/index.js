@@ -11,8 +11,7 @@ import UserInfo from "../components/UserInfo";
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
-const userName = user.getUserInfo().name;
-const userOcc = user.getUserInfo().occupation;
+let { name, occupation } = user.getUserInfo();
 
 /*══════════════╕
  │ PAGE BUTTONS │
@@ -21,8 +20,9 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
+  ({ name, occupation } = user.getUserInfo());
   editProfilePopup.open();
-  editProfilePopup.setInputValues({title: userName, description: userOcc });
+  editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
 });
 addButton.addEventListener("click", () => {
@@ -33,8 +33,6 @@ addButton.addEventListener("click", () => {
 /*═══════╕
  │ FORMS │
  ╘═══════*/
-const profileNameInput = document.querySelector("#popupName");
-const profileDescriptionInput = document.querySelector("#popupDescription");
 const editProfilePopup = new PopupWithForm(
   "#edit-profile-popup",
   handleProfileSave
@@ -44,9 +42,7 @@ const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
 /*═══════╕
  │ CARDS │
  ╘═══════*/
-const cardListElement = document.querySelector(".cards__list");
-
-new Section(
+const cardSection = new Section(
   { items: initialCards, renderer: handleCreateCard },
   ".cards__list"
 );
@@ -54,21 +50,22 @@ new Section(
 /*════════════════╕
  │ EVENT HANDLERS │
  ╘════════════════*/
-function handleAddCard({ input_1, input_2 }) {
+const popup = new PopupWithImage("#image-popup");
+  
+function handleAddCard({ title, url }) {
   const card = {
-    name: input_1,
-    link: input_2,
+    name: title,
+    link: url,
   };
-  cardListElement.prepend(handleCreateCard(card));
+  cardSection.addItem(handleCreateCard(card));
 }
 function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
 }
 function handleImageClick(card) {
-  const popup = new PopupWithImage("#image-popup");
   popup.open(card.getData());
 }
-function handleProfileSave({ input_1: name, input_2: description }) {
+function handleProfileSave({ title: name, description: description }) {
   user.setUserInfo(name, description);
 }
 

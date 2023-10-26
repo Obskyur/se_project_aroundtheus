@@ -22,7 +22,7 @@ export default class FormValidator {
       this._settings
     );
     this._inputFields.forEach((input) => {
-      this._hideInputError(this._formEl, input, this._settings);
+      this._hideInputError(input);
     });
   }
 
