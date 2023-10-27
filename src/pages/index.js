@@ -19,7 +19,7 @@ export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
 
 editButton.addEventListener("click", () => {
-  let { name, occupation } = user.getUserInfo();
+  const { name, occupation } = user.getUserInfo();
   editProfilePopup.open();
   editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
