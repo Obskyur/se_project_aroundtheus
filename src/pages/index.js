@@ -1,5 +1,5 @@
 import "./index.css";
-import { config, formValidators, initialCards } from "../utils/constants.js";
+import { config, formValidators } from "../utils/constants.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -54,11 +54,7 @@ let cardSection;
 const imagePopup = new PopupWithImage("#image-popup");
 
 function handleAddCard({ title, url }) {
-  const card = {
-    name: title,
-    link: url,
-  };
-  api.addCard(card)
+  api.addCard({name: title, link: url})
   .then(cardObj => {
     cardSection.addItem(handleCreateCard(cardObj));
   })
@@ -71,7 +67,11 @@ function handleImageClick(card) {
   imagePopup.open(card.getData());
 }
 function handleProfileSave({ title, description }) {
-  user.setUserInfo(title, description);
+  api.setUser({ name: title, about: description })
+    .then(({name, about}) => {
+      user.setUserInfo(name, about);
+    })
+    .catch(err => console.error(err));
 }
 
 /*═══════════╕
