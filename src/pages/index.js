@@ -1,5 +1,6 @@
 import "./index.css";
 import { config, formValidators, initialCards } from "../utils/constants.js";
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -41,10 +42,11 @@ const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
 /*═══════╕
  │ CARDS │
  ╘═══════*/
-const cardSection = new Section(
-  { items: initialCards, renderer: handleCreateCard },
-  ".cards__list"
-);
+let cardSection;
+// const cardSection = new Section(
+//   { items: initialCards, renderer: handleCreateCard },
+//   ".cards__list"
+// );
 
 /*════════════════╕
  │ EVENT HANDLERS │
@@ -56,7 +58,11 @@ function handleAddCard({ title, url }) {
     name: title,
     link: url,
   };
-  cardSection.addItem(handleCreateCard(card));
+  api.addCard(card)
+  .then(cardObj => {
+    cardSection.addItem(handleCreateCard(cardObj));
+  })
+  .catch(err => console.error(err));
 }
 function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick).getElement();
@@ -83,3 +89,28 @@ function enableValidation(config) {
 }
 
 enableValidation(config);
+
+const api = new Api({
+  baseURL: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "f88f7f13-d094-4973-ab37-f03c8d3d09a5",
+    "Content-Type": "application/json",
+  },
+});
+
+// Initialize Page from Server:
+api.getPageInfo()
+  .then(([cardArray, userInfo]) => {
+    console.log(userInfo);
+    console.log(cardArray);
+
+    // Update User Details from Server
+    user.setUserInfo(userInfo.name, userInfo.about);
+    
+    // Update Cards from Server
+    cardSection = new Section(
+      { items: cardArray, renderer: handleCreateCard },
+      ".cards__list"
+    );
+  })
+  .catch(err => console.error(err));

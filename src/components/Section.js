@@ -6,8 +6,10 @@ export default class Section {
     this.renderItems();
   }
 
-  addItem(element) {
-    this._container.prepend(element);
+  addItem(element, server = false) {
+    server ?
+      this._container.append(element) :
+      this._container.prepend(element);
   }
 
   _clear() {
@@ -18,7 +20,7 @@ export default class Section {
     this._clear();
     this._items.forEach((item) => {
       const element = this._renderer(item);
-      this.addItem(element);
+      this.addItem(element, true);
     });
   }
 }
