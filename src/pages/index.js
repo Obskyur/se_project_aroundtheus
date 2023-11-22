@@ -24,11 +24,13 @@ export const addCardButton = document.querySelector(".profile__add-button");
 
 editProfileButton.addEventListener("click", () => {
   const { name, occupation } = user.getUserInfo();
+  editProfilePopup.saving(false);
   editProfilePopup.open();
   editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
 });
 editImageButton.addEventListener("click", () => {
+  editProfileImagePopup.saving(false);
   editProfileImagePopup.open();
 })
 addCardButton.addEventListener("click", () => {
@@ -60,11 +62,13 @@ let targetCard;
  │ EVENT HANDLERS │
  ╘════════════════*/
 const imagePopup = new PopupWithImage("#image-popup");
+const deleteButton = document.querySelector("#confirm-delete-button");
 
 function handleAddCard({ title, url }) {
   api.addCard({name: title, link: url})
   .then(cardObj => {
-    cardSection.addItem(handleCreateCard(cardObj));
+    cardSection.addItem(cardObj);
+    addCardPopup.close();
   })
   .catch(err => console.error(err));
 }
@@ -72,16 +76,21 @@ function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick, handleDeleteClick, handleLikeClick).getElement();
 }
 function handleDeleteCard() {
-  const deleteButton = document.querySelector("#confirm-delete-button");
-  deleteButton.textContent = "Deleting...";
+  confirmDeletePopup.deleting(true);
   api.deleteCard(targetCard)
-    .then(() => cardSection.renderItems())
+    .then(() => api.getPageInfo()
+      .then(([cardArray]) => {
+        console.log(cardArray);
+        cardSection.setItems(cardArray);
+        cardSection.renderItems();
+        confirmDeletePopup.close();
+      })
+    )
     .catch(err => console.log(err));
-  deleteButton.textContent = "Yes";
 }
 function handleDeleteClick(card) {
-  console.log(card.getData());
   targetCard = card.getData();
+  confirmDeletePopup.deleting(false);
   confirmDeletePopup.open();
 }
 function handleImageClick(card) {
@@ -89,23 +98,29 @@ function handleImageClick(card) {
 }
 function handleLikeClick(card) {
   targetCard = card.getData();
-  api.toggleLike(targetCard, targetCard.isLiked)
+  api.toggleLike(targetCard)
   .then(cardSection.renderItems())
   .catch(err => console.log(err));
 }
 function handleProfileImageSave({url}) {
   console.log(url);
+  editProfileImagePopup.saving(true);
   profileImage.src = url;
   api.setUserPicture(url)
-    .then(res => console.log(res))
+    .then((res) => {
+      console.log(res);
+      editProfileImagePopup.close();
+    })
     .catch(err => console.error(err));
 }
 function handleProfileSave({ title, description }) {
+  editProfilePopup.saving(true);
   api.setUser({ name: title, about: description })
     .then(({name, about}) => {
       user.setUserInfo(name, about);
     })
     .catch(err => console.error(err));
+  editProfilePopup.close();
 }
 
 /*═══════════╕
