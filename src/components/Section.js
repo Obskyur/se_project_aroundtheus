@@ -3,7 +3,7 @@ export default class Section {
     this._items = items;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
-    this.renderItems();
+    this._renderItems();
   }
 
   addItem(element, server = false) {
@@ -16,7 +16,7 @@ export default class Section {
     this._container.innerHTML = "";
   }
 
-  renderItems() {
+  _renderItems() {
     this._clear();
     this._items.forEach((item) => {
       const element = this._renderer(item);
