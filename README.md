@@ -10,7 +10,8 @@
 
 - HTML
 - CSS
-  - @media selectors
+- JS
+  - Webpack
 
 ## Viewable At:
 
