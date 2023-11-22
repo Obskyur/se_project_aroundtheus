@@ -59,12 +59,13 @@ export default class Api {
   }
 
   setUserPicture(link) {
+    console.log(link);
     return fetch(`${this._baseURL}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: {
+      body: JSON.stringify({
         avatar: link
-      },
+      }),
     }).then(this._handleResponse);
   }
 
