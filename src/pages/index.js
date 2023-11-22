@@ -6,26 +6,32 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
+import PopupConfirm from "../components/PopupConfirm.js";
 import UserInfo from "../components/UserInfo";
 
 /*══════╕
  │ USER │
  ╘══════*/
 const user = new UserInfo(".profile__title", ".profile__description");
+const profileImage = document.querySelector(".profile__image");
 
 /*══════════════╕
  │ PAGE BUTTONS │
  ╘══════════════*/
-export const editButton = document.querySelector(".profile__edit-button");
-export const addButton = document.querySelector(".profile__add-button");
+export const editProfileButton = document.querySelector(".profile__edit-button");
+export const editImageButton = document.querySelector(".profile__image-update");
+export const addCardButton = document.querySelector(".profile__add-button");
 
-editButton.addEventListener("click", () => {
+editProfileButton.addEventListener("click", () => {
   const { name, occupation } = user.getUserInfo();
   editProfilePopup.open();
   editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
 });
-addButton.addEventListener("click", () => {
+editImageButton.addEventListener("click", () => {
+  editProfileImagePopup.open();
+})
+addCardButton.addEventListener("click", () => {
   addCardPopup.open();
   formValidators["add-card-form"].resetValidation();
 });
@@ -37,8 +43,12 @@ const editProfilePopup = new PopupWithForm(
   "#edit-profile-popup",
   handleProfileSave
 );
+const editProfileImagePopup = new PopupWithForm(
+  "#edit-profile-image-popup",
+  handleProfileImageSave
+);
 const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
-const confirmDeletePopup = new PopupWithForm('#confirm-delete-popup', handleDeleteCard);
+const confirmDeletePopup = new PopupConfirm('#confirm-delete-popup', handleDeleteCard);
 
 /*═══════╕
  │ CARDS │
@@ -62,9 +72,12 @@ function handleCreateCard(card) {
   return new Card(card, "#card-template", handleImageClick, handleDeleteClick, handleLikeClick).getElement();
 }
 function handleDeleteCard() {
+  const deleteButton = document.querySelector("#confirm-delete-button");
+  deleteButton.textContent = "Deleting...";
   api.deleteCard(targetCard)
-    .then(cardSection.renderItems())
+    .then(() => cardSection.renderItems())
     .catch(err => console.log(err));
+  deleteButton.textContent = "Yes";
 }
 function handleDeleteClick(card) {
   console.log(card.getData());
@@ -79,6 +92,13 @@ function handleLikeClick(card) {
   api.toggleLike(targetCard, targetCard.isLiked)
   .then(cardSection.renderItems())
   .catch(err => console.log(err));
+}
+function handleProfileImageSave({url}) {
+  console.log(url);
+  profileImage.src = url;
+  api.setUserPicture(url)
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
 }
 function handleProfileSave({ title, description }) {
   api.setUser({ name: title, about: description })
@@ -115,10 +135,10 @@ const api = new Api({
 // Initialize Page from Server:
 api.getPageInfo()
   .then(([cardArray, userInfo]) => {
-    console.log(userInfo);
     console.log(cardArray);
 
     // Update User Details from Server
+    profileImage.src = userInfo.avatar;
     user.setUserInfo(userInfo.name, userInfo.about);
     
     // Update Cards from Server
