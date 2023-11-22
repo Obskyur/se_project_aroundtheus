@@ -45,47 +45,6 @@
       </footer>
     </div>
 
-    <!--* Edit Profile Popup -->
-    <div class="popup" id="edit-profile-popup">
-      <div class="popup__container">
-        <button
-          class="popup__close"
-          type="button"
-          aria-label="Close Profile Edit"
-        ></button>
-        <h2 class="popup__heading">Edit Profile</h2>
-        <form
-          class="popup__form"
-          id="edit-profile-form"
-          name="edit-profile-form"
-        >
-          <input
-            class="popup__input"
-            id="popupName"
-            type="text"
-            name="title"
-            placeholder="Name"
-            minlength="2"
-            maxlength="40"
-            required
-          />
-          <span class="popup__error" id="popupName-error"></span>
-          <input
-            class="popup__input"
-            id="popupDescription"
-            type="text"
-            name="description"
-            placeholder="Description"
-            minlength="2"
-            maxlength="200"
-            required
-          />
-          <span class="popup__error" id="popupDescription-error"></span>
-          <button class="popup__button" type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-
     <!--* Add Card Popup -->
     <div class="popup" id="add-card-popup">
       <div class="popup__container">
@@ -123,6 +82,66 @@
           >
             Create
           </button>
+        </form>
+      </div>
+    </div>
+
+    <!--* Confirm Delete Popup -->
+    <div class="popup" id="confirm-delete-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          type="button"
+          aria-label="Close Profile Edit"
+        ></button>
+        <h2 class="popup__heading">Are you sure?</h2>
+        <form
+          class="popup__form"
+          id="confirm-delete-form"
+          name="confirm-delete-form"
+        >
+          <button class="popup__button" type="submit">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <!--* Edit Profile Popup -->
+    <div class="popup" id="edit-profile-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          type="button"
+          aria-label="Close Profile Edit"
+        ></button>
+        <h2 class="popup__heading">Edit Profile</h2>
+        <form
+          class="popup__form"
+          id="edit-profile-form"
+          name="edit-profile-form"
+        >
+          <input
+            class="popup__input"
+            id="popupName"
+            type="text"
+            name="title"
+            placeholder="Name"
+            minlength="2"
+            maxlength="40"
+            required
+          />
+          <span class="popup__error" id="popupName-error"></span>
+          <input
+            class="popup__input"
+            id="popupDescription"
+            type="text"
+            name="description"
+            placeholder="Description"
+            minlength="2"
+            maxlength="200"
+            required
+          />
+          <span class="popup__error" id="popupDescription-error"></span>
+          <button class="popup__button" type="submit">Save</button>
         </form>
       </div>
     </div>

@@ -38,15 +38,13 @@ const editProfilePopup = new PopupWithForm(
   handleProfileSave
 );
 const addCardPopup = new PopupWithForm("#add-card-popup", handleAddCard);
+const confirmDeletePopup = new PopupWithForm('#confirm-delete-popup', handleDeleteCard);
 
 /*═══════╕
  │ CARDS │
  ╘═══════*/
 let cardSection;
-// const cardSection = new Section(
-//   { items: initialCards, renderer: handleCreateCard },
-//   ".cards__list"
-// );
+let targetCard;
 
 /*════════════════╕
  │ EVENT HANDLERS │
@@ -61,10 +59,26 @@ function handleAddCard({ title, url }) {
   .catch(err => console.error(err));
 }
 function handleCreateCard(card) {
-  return new Card(card, "#card-template", handleImageClick).getElement();
+  return new Card(card, "#card-template", handleImageClick, handleDeleteClick, handleLikeClick).getElement();
+}
+function handleDeleteCard() {
+  api.deleteCard(targetCard)
+    .then(cardSection.renderItems())
+    .catch(err => console.log(err));
+}
+function handleDeleteClick(card) {
+  console.log(card.getData());
+  targetCard = card.getData();
+  confirmDeletePopup.open();
 }
 function handleImageClick(card) {
   imagePopup.open(card.getData());
+}
+function handleLikeClick(card) {
+  targetCard = card.getData();
+  api.toggleLike(targetCard, targetCard.isLiked)
+  .then(cardSection.renderItems())
+  .catch(err => console.log(err));
 }
 function handleProfileSave({ title, description }) {
   api.setUser({ name: title, about: description })
