@@ -11,11 +11,9 @@ export default class PopupWithForm extends Popup {
     this.setEventListeners();
   }
 
-  focus() {
-    console.log(this._inputs[0]);
-    const end = this._inputs[0].value.length;
-    this._inputs[0].setSelectionRange(end, end);
-    this._inputs[0].focus();
+  open() {
+    super.open();
+    setTimeout(() => this._inputs[0].focus(), 700);
   }
 
   renderLoading(isLoading, loadingText) {

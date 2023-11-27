@@ -27,19 +27,16 @@ editProfileButton.addEventListener("click", () => {
   const { name, occupation } = user.getUserInfo();
   editProfilePopup.renderLoading(false);
   editProfilePopup.open();
-  editProfilePopup.focus();
   editProfilePopup.setInputValues({ title: name, description: occupation });
   formValidators["edit-profile-form"].resetValidation();
 });
 editImageButton.addEventListener("click", () => {
   editProfileImagePopup.renderLoading(false);
   editProfileImagePopup.open();
-  editProfileImagePopup.focus();
   formValidators["edit-profile-image-form"].resetValidation();
 });
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
-  addCardPopup.focus();
   formValidators["add-card-form"].resetValidation();
 });
 
