@@ -5,14 +5,19 @@ export default class PopupConfirm extends Popup {
     super(popupSelector);
     this._popupForm = this._popup.querySelector(".popup__form");
     this._handleFormSubmit = handleFormSubmit;
-    this._buttonText = this._popupForm.querySelector(".popup__button");
+    this._submitBtn = this._popupForm.querySelector(".popup__button");
+    this._submitBtnText = this._submitBtn.textContent;
     this.setEventListeners();
   }
 
-  deleting(show) {
-    show ?
-      this._buttonText.textContent = "Deleting..." :
-      this._buttonText.textContent = "Yes";
+  renderLoading(isLoading, loadingText) {
+    isLoading
+      ? (this._submitBtn.textContent = loadingText)
+      : (this._submitBtn.textContent = this._submitBtnText);
+  }
+
+  reset() {
+    this._popupForm.reset();
   }
 
   setEventListeners = () => {
@@ -20,7 +25,6 @@ export default class PopupConfirm extends Popup {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleFormSubmit();
-      evt.target.reset();
     });
   };
 }

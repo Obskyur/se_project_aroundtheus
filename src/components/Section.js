@@ -16,9 +16,10 @@ export default class Section {
   }
 
   deleteItem(cardObj) {
-    this._items = this._items.filter(item => {
-      item._id != cardObj._id;
-    })
+    this._items.splice(
+      this._items.findIndex(item =>
+        item._id == cardObj._id
+      ), 1);
   }
 
   renderItem(cardObj, server = false) {

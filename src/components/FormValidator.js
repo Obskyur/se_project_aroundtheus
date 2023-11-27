@@ -59,7 +59,6 @@ export default class FormValidator {
     // Submit Listener
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._disableButton(this._submitButton, this._settings);
     });
 
     // Validate on Input Listener
